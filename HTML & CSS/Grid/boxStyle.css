@@ -1,0 +1,96 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: radial-gradient(circle at 30% 30%,
+      #ff7a00,
+      #ff004c 45%,
+      #c13cff 80%);
+
+}
+.gradient {
+  position: fixed;
+  top: -20%;
+  right: -15%;
+
+  width: 900px;
+  height: 900px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle at 30% 30%,
+      #ff7a00,
+      #ff004c 45%,
+      #c13cff 80%);
+
+  filter: blur(80px);
+
+  opacity: 0.95;
+
+  z-index: -2;
+}
+.noise {
+  position: fixed;
+  inset: 0;
+
+  background-image:
+    url("https://grainy-gradients.vercel.app/noise.svg");
+
+  opacity: 0.08;
+
+  pointer-events: none;
+
+  z-index: 100;
+}
+.container{
+    background-color: white;
+    margin: 50px auto;
+    border: 2px solid black;
+    padding: 10px;
+    height: 700px;
+    width: 800px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+}
+.item{
+    border-radius: 15px;
+    border: white 3px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+#grid-item-1{
+    grid-column : 1/2;
+    grid-row : 1/3;
+    background-color: lavender;
+}
+#grid-item-2{
+    background-color: pink;
+    grid-column :2/4;
+    grid-row : 1/2;
+}
+#grid-item-3{
+    background-color: lightgreen;
+    grid-row :2/3 ;
+    grid-column :2/3 ;
+}
+#grid-item-4{
+    background-color: yellow;
+    grid-row : 2/3;
+    grid-column : 3/4;
+}
+#grid-item-5{
+    background-color: lightcoral;
+;
+    grid-row : 3/4;
+    grid-column : 1/3;
+}
+#grid-item-6{
+    background-color: skyblue;
+    grid-row : 3/4;
+    grid-column : 3/4;
+}

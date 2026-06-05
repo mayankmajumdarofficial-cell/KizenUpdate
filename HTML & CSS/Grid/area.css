@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    
+
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 100px 90% 100px;
+    grid-template-rows: 80px 1fr 40px;
+    grid-template-areas:
+        "header header header"
+        "nav main sidebar"
+        "footer footer footer";
+}
+header,nav,main,aside,footer{
+    border: 1px solid black;
+    padding: 20px;
+    background-color: steelblue;
+}
+header{
+    grid-area: header;
+
+}
+nav{
+    grid-area: nav;
+
+}
+main{
+    grid-area: main;
+
+}
+aside{
+    grid-area: sidebar;
+
+}
+footer{
+    grid-area: footer;
+
+}
