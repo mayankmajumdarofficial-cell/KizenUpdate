@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="list">
+        <li class ="items">Item 1</li>
+        <li class ="items">Item 2</li>
+        <li class ="items">Item 3</li>
+        <li class ="items">Item 4</li>
+    </ul>
+    <ol id="ordered">
+
+    </ol>
+    <script>
+        let d= this.document;
+        let newEle = d.createElement("li");
+        newEle.innerHTML = "This is the new List Item";
+        let parentNode = d.getElementById("list");
+        parentNode.appendChild(newEle);
+
+        let fruits = ["Apple", "Banana", "Mango", "Grapes"];
+        let fruitsList = d.getElementById("ordered");
+        fruits.forEach(fruit => {
+            let nf =d.createElement("li");
+            nf.innerHTML = fruit;
+            fruitsList.appendChild(nf);
+        })
+        let text= "This is a text node";
+
+        parentNode.insertAdjacentHTML("beforebegin",text);
+
+    </script>
+</body>
+</html>

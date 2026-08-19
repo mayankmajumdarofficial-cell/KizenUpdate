@@ -1,0 +1,179 @@
+What is Node in DOM
+
+Element and TextNode
+
+Node Relationship
+Eg. body is the child node of html Node
+
+
+ <div>  // Parent Element
+      <p>Javscript</p>// First Child Node
+      <p>Javscript</p> // Next Sibling Node for First child node
+      <p>Javscript</p>//  Next Sibling for Second
+      <p>Javscript</p> // Last Child Node
+
+    </div> 
+
+
+
+2. Selecting HTML Elements 
+
+1. getElementById() Methods returns an element object  that represents an HTML Element else null , if there are multiple element with same "id" then you'll get only first Occurrence.
+
+
+Eg.  document.getElementById('container');
+
+
+
+
+
+
+3. The getElementsByClassName() method returns an array-like of objects of the child elements with a specified class name. else ** Empty HTMLCollection:[].
+
+  Example:  let someParas = document.getElementsByClassName('paras');
+
+
+* We can access elements based on particular Parent Element
+
+
+4. querySelector Vs querySelectorAll 
+
+Note: very Effective :  allow to select based on classname  , id , complex css selector 
+  	
+	querySelector() method allow to select the first element that macthes one 	or more CSS Selectors
+
+	querySelectorAll() method allow to select the all the  element that 	maches one or more CSS Selectors
+
+=====================================================
+
+3. Manipulating HTML Element ✅
+
+1. createElement() 
+2. appendchild() 
+3. textContent
+4. innerHTML
+5. after()
+6. append()
+7. prepend()
+8. insertAdjacentHTML()
+9. replacechild()*
+10. cloneNode()
+11. removechild()
+
+
+1. createElement(): createElement() accepts an HTML tag name and return a new Node with the Element type.
+2.appendchild() : method that is used to append HTML element refer to the selected parent element
+
+Example: 
+ul>li*4 {Items}
+
+script:
+
+    let li = document.createElement('li');
+      li.innerHTML = 'New Content';
+      document.querySelector('ul').appendChild(li);
+
+3.textContent : to get the text content of a node and its descendants , ALSO show hidden text | replace the content in HTML element
+
+   Eg.    console.log(document.querySelector('ul').textContent);
+
+
+
+4.innerText:  to get the text content , DOESN'T show the hidden text
+Example: 
+
+      let li = document.createElement('li');
+      li.innerHTML = 'New Content';
+      document.querySelector('ul').appendChild(li).style.display = 'none';
+      console.log(document.querySelector('ul').textContent);
+
+5. after():method is used to insert one or more nodes after the element
+
+		Element.after(node1,node2,node3....)
+
+
+
+Example:
+	let h4 = document.createElement('h4');
+      h4.innerText = 'Heading 4';
+      let p = document.createElement('p');
+      p.innerText = 'Paragrah 4';
+      document.querySelector('ul').after(p, h4);
+
+
+
+6. append(): methods is used to append child inside Parent element at the last
+
+Example:   let listItem = d.createElement('li');
+      listItem.innerText = 'Thi is the append List Item';
+      document.querySelector('ul').append(listItem);
+
+7. prepend() : method that is used to add the first Child Element inside the Parent Element
+
+
+8.insertAdjacentHTML(positions,text): 
+positions :  beforebegin, afterbegin, before-end and afterend
+
+
+Example: document
+        .querySelector('ul')
+        .insertAdjacentHTML(
+          'afterend',
+          '<li>This is the append List Item</li>'
+        );
+
+
+
+9: cloneNode() : The cloneNode() method is used to create a copy of a node in the DOM. It can be used to duplicate elements, text nodes, or other nodes 
+Note : Default value is false : means only parent element will be cloned not child
+
+
+Example : parentNode.cloneNode(true) 
+	
+	  parentNode.cloneNode()
+ 
+
+
+10: removechild() : removes the child element associated with parent Element
+
+Example: parentNode.removeChild(parent.firstElementChild)
+	parentNode.removeChild(parent.lastElementChild)
+		
+	
+
+=======================
+4. Attributes Methods
+
+ *****getElementsByName: The getElementsByTagName() method accepts a tag name and returns a HTMLCollection (Array) of elements. else Empty  HTMLColle
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="unordered-1">
+        <li class="items" name="it">Item 1</li>
+        <li class="items">Item 2</li>
+        <li class="items">Item 3</li>
+        <li class="items">Item 4</li>
+        <li class="items">Item 5</li>
+        <li class="items">Item 6</li>
+    </ul>
+    <ul id="unordered-2">
+        <li >List Item 1</li>
+        <li >List Item 2</li>
+        <li >List Item 3</li>
+        <li>List Item 4</li>
+    </ul>
+    <script >
+        console.log(document.getElementById("unordered-1"));
+        console.log(document.getElementById("unordered-2"));
+        let x = document.getElementsByClassName("items");
+        let y = document.getElementsByTagName("li");
+        let z= document.getElementsByName("it");
+        console.log(z);
+    </script>
+</body>
+</html>
