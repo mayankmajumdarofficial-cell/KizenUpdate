@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drawing Board</title>
+    <style>
+      :root {
+        /* Default Light Theme */
+        --bg-color: #c7d3c0;
+        --board-bg: #e8f5e9;
+        --panel-bg: #ffffff;
+        --text-color: #333333;
+        --border-color: #a3b19b;
+        --btn-bg: #f70804;
+        --btn-hover: #d32f2f;
+      }
+
+      body.theme-dark {
+        --bg-color: #1a1a1a;
+        --board-bg: #2d2d2d;
+        --panel-bg: #242424;
+        --text-color: #ffffff;
+        --border-color: #404040;
+        --btn-bg: #e53935;
+        --btn-hover: #c62828;
+      }
+
+      body.theme-bw {
+        --bg-color: #e0e0e0;
+        --board-bg: #ffffff;
+        --panel-bg: #f5f5f5;
+        --text-color: #000000;
+        --border-color: #000000;
+        --btn-bg: #424242;
+        --btn-hover: #212121;
+        
+        /* Grayscale filter turns the entire UI and drawing board black & white */
+        filter: grayscale(100%);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        background: var(--bg-color);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 25px;
+        gap: 20px;
+        color: var(--text-color);
+        transition: background 0.3s ease, color 0.3s ease, filter 0.3s ease;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-weight: bold;
+      }
+
+      .theme-btn-group {
+        display: flex;
+        gap: 10px;
+      }
+
+      .theme-btn {
+        background: var(--panel-bg);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        padding: 6px 12px;
+      }
+
+      .theme-btn:hover {
+        background: var(--border-color);
+      }
+
+      #drawing-board {
+        width: 75vw;
+        height: 75vh;
+        background: var(--board-bg);
+        border: 2px solid var(--border-color);
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s ease, border-color 0.3s ease;
+      }
+
+      .drawing {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .controls {
+        width: 75vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        padding: 15px 20px;
+        background: var(--panel-bg);
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: background 0.3s ease;
+      }
+
+      .control-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      button {
+        padding: 8px 18px;
+        border: none;
+        border-radius: 8px;
+        background: var(--btn-bg);
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background 0.2s ease;
+      }
+
+      button:hover {
+        background: var(--btn-hover);
+      }
+
+      input[type='range'] {
+        width: 180px;
+        cursor: pointer;
+      }
+
+      input[type='color'] {
+        width: 40px;
+        height: 40px;
+        border: none;
+        cursor: pointer;
+        background: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span>Change Theme:</span>
+      <div class="theme-btn-group">
+        <button class="theme-btn" onclick="setTheme('light')">Light</button>
+        <button class="theme-btn" onclick="setTheme('dark')">Dark</button>
+        <button class="theme-btn" onclick="setTheme('bw')">Black & White</button>
+      </div>
+    </header>
+
+    <div id="drawing-board"></div>
+
+    <div class="controls">
+      <button id="clear-board">Clear</button>
+
+      <div class="control-group">
+        <strong>Brush Size</strong>
+        <input type="range" id="slider" min="1" max="50" value="10" />
+      </div>
+
+      <div class="control-group">
+        <label for="colorPicker"><strong>Color</strong></label>
+        <input type="color" id="colorPicker" value="#ff0000" />
+      </div>
+    </div>
+
+    <script>
+      const drawingBoard = document.getElementById('drawing-board');
+      const clearBoardBtn = document.getElementById('clear-board');
+      const slider = document.getElementById('slider');
+      const colorPicker = document.getElementById('colorPicker');
+
+      let isDrawing = false;
+      let brushSize = slider.value;
+      let brushColor = colorPicker.value;
+
+      function setTheme(theme) {
+        document.body.className = '';
+        if (theme !== 'light') {
+          document.body.classList.add(`theme-${theme}`);
+        }
+      }
+
+      drawingBoard.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        draw(e);
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDrawing = false;
+      });
+
+      drawingBoard.addEventListener('mousemove', draw);
+
+      function draw(e) {
+        if (!isDrawing) return;
+
+        const dot = document.createElement('div');
+        dot.classList.add('drawing');
+        dot.style.width = `${brushSize}px`;
+        dot.style.height = `${brushSize}px`;
+        dot.style.backgroundColor = brushColor;
+        
+        const rect = drawingBoard.getBoundingClientRect();
+        dot.style.left = `${e.clientX - rect.left - brushSize / 2}px`;
+        dot.style.top = `${e.clientY - rect.top - brushSize / 2}px`;
+
+        drawingBoard.appendChild(dot);
+      }
+
+      clearBoardBtn.addEventListener('click', () => {
+        drawingBoard.innerHTML = '';
+      });
+
+      slider.addEventListener('input', (e) => {
+        brushSize = e.target.value;
+      });
+
+      colorPicker.addEventListener('input', (e) => {
+        brushColor = e.target.value;
+      });
+    </script>
+  </body>
+</html>

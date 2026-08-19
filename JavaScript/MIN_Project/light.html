@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            height: 300px;
+            width: 300px;
+            margin: auto;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+        }
+        .bulb{
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            border-radius: 50%;
+            margin: auto;
+        }
+        .on{
+            background-color: yellow;
+        }
+        .off{
+            background-color: gray;
+        }
+        .btn{
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bulb"></div>
+        <p>Bulb</p>
+        <button class="btn" id="on">On</button>
+        <button class="btn" id="off">Off</button>
+    </div>
+    <script>
+        let bulb = document.querySelector(".bulb");
+        let onButton = document.getElementById("on");
+        let offButton = document.getElementById("off");
+
+        onButton.addEventListener("click", ()=>{
+            bulb.classList.remove("off");
+            bulb.classList.add("on");
+        });
+
+        offButton.addEventListener("click", ()=>{
+            bulb.classList.remove("on");
+            bulb.classList.add("off");
+        });
+    </script>
+</body>
+</html>
